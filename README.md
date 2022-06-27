@@ -1,8 +1,7 @@
 # CodeLine
 
 <h3>HW#1</h3>
-> HTML
-<br>
+> HTML <br>
 > 이력서
 <br><br>
 
