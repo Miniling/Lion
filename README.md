@@ -2,24 +2,24 @@
 
 <h4>HW#1</h4>
 > HTML
-> 
-> 이력서
 <br>
+> 이력서
+<br><br>
 
 <h4>HW#2</h4>
 > HTML
-> 
-> 정적 페이지
 <br>
+> 정적 페이지
+<br><br>
 
 <h4>HW#3</h4>
 > Python
-> 
-> 미로게임
 <br>
+> 미로게임
+<br><br>
 
 <h4>HW#4</h4>
 > Python
-> 
-> Request/Get + SMTP
 <br>
+> Request/Get + SMTP
+<br><br>
