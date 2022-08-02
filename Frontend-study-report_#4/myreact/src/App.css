@@ -1,0 +1,22 @@
+.App {
+  text-align: center;
+  padding: 80px 200px 40px 200px;
+  min-width: 800px;
+}
+
+@media (max-width: 1000px) {
+  #body {
+    background-color: antiquewhite;
+  }
+}
+
+.content {
+  padding-top: 30px;
+}
+
+.title {
+  font-size: 20pt;
+  font-weight: bold;
+  color: darkblue;
+  padding-bottom: 40px;
+}

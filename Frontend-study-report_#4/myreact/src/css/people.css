@@ -1,0 +1,50 @@
+.peopleInfo {
+    display: flex;
+    flex-direction: column;
+    background-color: beige;
+    padding: 10px 40px 10px 40px;
+}
+
+.major > a {
+    margin: 12px;
+    cursor: pointer;
+}
+
+.people {
+    display: flex;
+    flex-direction: column;
+    margin: 30px;
+}
+
+.peopleCard {
+    display: flex;
+    justify-content: space-around;
+    padding: 6px;
+    border: 1px solid lightslategray;
+}
+
+.cardCenter {
+    width: 50%;
+    text-align: start;
+}
+
+.peopleCard > button {
+    margin: 80px 0 5px;
+    background-color: orange;
+    border-radius: 1ch;
+    border-color: lightcyan;
+    color: white;
+    font-weight: bold;
+}
+
+.peopleDetail {
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    padding: 20px 20px 20px 80px;
+    border: 1px solid lightslategray;
+}
+
+.peopleDetail > span > a {
+    font-weight: bold;
+}

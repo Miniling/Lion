@@ -1,0 +1,24 @@
+.about {
+    display: flex;
+    background-color: beige;
+    padding: 30px 40px 30px 40px;
+}
+
+.aboutLeft {
+    width: fit-content;
+    padding-right: 5px;
+}
+
+.aboutLeft > img {
+    width: 150px;
+}
+
+.aboutRight {
+    width: 80%;
+    text-align: start;
+    padding: 10px;
+}
+
+.aboutRight > a {
+    width: 100%;
+}

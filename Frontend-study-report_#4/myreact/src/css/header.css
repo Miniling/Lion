@@ -1,0 +1,13 @@
+.logo {
+    padding-bottom: 20px;
+}
+
+.headerMenu {
+    border-top: 2px solid darkblue;
+    border-bottom: 2px solid darkblue;
+    padding: 5px;
+}
+
+.headerMenu > span{
+    padding: 0px 60px 0px 60px;
+}
