@@ -1,0 +1,6 @@
+/* 글쓰기 버튼 */
+.writing-button {
+    width: 100%;
+    height: 40px;
+    cursor: pointer;
+}

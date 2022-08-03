@@ -1,0 +1,25 @@
+/* 글 작성 페이지 */
+.subject {
+    float: left;
+    margin: 8px;
+}
+
+.title {
+    width: 100%;
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 8px;
+    padding: 6px;
+}
+
+.content {
+    width: 100%;
+    height: 600px;
+    margin: 8px;
+    padding: 6px;
+    resize: none
+}
+
+.back {
+    margin: 30px;
+}

@@ -1,0 +1,48 @@
+/* 게시물 페이지 */
+.post-subject {
+  text-align: start;
+  padding-left: 10px;
+  font-size: 10pt;
+  font-weight: bold;
+  color: darkblue;
+}
+
+.content-box {
+    width: 100%;
+    height: 600px;
+    margin: 8px;
+    padding: 6px;
+    text-align: start;
+    border: 1px solid lightgray;
+}
+
+.update-button {
+    float: right;
+    width: 60px;
+    padding: 6px 0 6px 0;
+    margin-right: 2px;
+    border-radius: 1rem;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 12pt;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.delete-button {
+    float: right;
+    width: 60px;
+    height: 34px;
+    margin-left: 2px;
+    border-radius: 1rem;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 12pt;
+    cursor: pointer;
+  }
+
+  .comment {
+    padding: 10px;
+  }

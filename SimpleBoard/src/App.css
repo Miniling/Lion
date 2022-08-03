@@ -1,0 +1,16 @@
+.App {
+  min-width: 800px;
+  text-align: center;
+  padding: 30px 0 30px 0;
+}
+
+#head {
+  display: flex;
+  justify-content: center;
+  border-top: 2px solid gray;
+  border-bottom: 2px solid gray;
+}
+
+#body {
+  margin: 30px 15% 30px 15%;
+}

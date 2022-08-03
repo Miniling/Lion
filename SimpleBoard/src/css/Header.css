@@ -1,0 +1,27 @@
+/* 페이지 상단 로고 */
+.banner {
+  width: fit-content;
+  cursor: pointer;
+}
+
+/* 페이지 이름 */
+.head-writing {
+  width: 100%;
+  padding: 20px 40px 20px 40px;
+}
+.head-writing > a {
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+.posting-button {
+  float: right;
+  width: 60px;
+  height: 34px;
+  border-radius: 1rem;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  font-size: 12pt;
+  cursor: pointer;
+}

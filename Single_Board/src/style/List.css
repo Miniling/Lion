@@ -1,0 +1,12 @@
+/* 게시글 목록 */
+.board-list {
+    margin: 30px;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    list-style: none;
+    border: 1px solid darkgray;
+}

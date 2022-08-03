@@ -1,0 +1,51 @@
+.card-top {
+    display: flex;
+}
+
+.card-user {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.card-content {
+    text-align: start;
+    width: 50%;
+}
+
+.card-button {
+    text-align: end;
+    width: 50%;
+}
+
+.cancel-button, .recomment-button {
+    float: right;
+    width: 60px;
+    padding: 6px 0 6px 0;
+    margin-right: 2px;
+    border-radius: 1rem;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: 12pt;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.update-button, .delete-button, .cancel-button {
+    margin: 2px;
+}
+
+.content-update {
+    width: 95%;
+    height: 50px;
+    resize: vertical;
+    margin-left: 8px;
+}
+
+.card-info {
+    text-align: end;
+    color: black;
+}
+.card-info > a {
+    padding: 5px;
+}

@@ -1,0 +1,15 @@
+.reple-form {
+    display: flex;
+    flex-direction: column;
+}
+.reple-form > button {
+    margin-left: 90%;
+}
+
+.reple-content {
+    height: 100px;
+    resize: none;
+    padding: 4px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}

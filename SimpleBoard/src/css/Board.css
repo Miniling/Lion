@@ -1,0 +1,46 @@
+/* 게시글 목록 */
+.board-list {
+    margin-bottom: 30px;
+}
+
+.post-link {
+    text-decoration: none;
+}
+
+.post-card {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    list-style: none;
+    border: 1px solid darkgray;
+}
+
+.post-title {
+    text-align: start;
+    font-weight: bold;
+    font-size: larger;
+    color: black;
+}
+
+.post-content {
+    text-align: start;
+    color: gray
+}
+
+.post-info {
+    text-align: start;
+    color: black;
+}
+
+.info-left {
+    font-size: 10pt;
+    font-weight: bold;
+    color: darkblue;
+}
+
+.info-right {
+    float: right;
+}
+.info-right > a {
+    padding: 5px;
+}

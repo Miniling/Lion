@@ -1,0 +1,40 @@
+.card-top {
+    display: flex;
+}
+
+.card-title {
+    text-align: start;
+    font-weight: bold;
+    font-size: larger;
+    color: black;
+    width: 50%;
+}
+
+.button {
+    text-align: end;
+    width: 50%;
+}
+
+.update-button, .delete-button, .cancel-button {
+    margin: 2px;
+}
+
+.card-content {
+    text-align: start;
+    color: gray
+}
+
+.content-update {
+    width: 95%;
+    height: 50px;
+    resize: vertical;
+    margin-left: 8px;
+}
+
+.card-info {
+    text-align: end;
+    color: black;
+}
+.card-info > a {
+    padding: 5px;
+}
