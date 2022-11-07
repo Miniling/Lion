@@ -7,28 +7,6 @@ import '../css/PostPage.css';
 export default function PostPage() {
     const location = useLocation();
     const post = location.state.data;
-    const reply = JSON.parse(localStorage.getItem('reples'));
-
-    /* 삭제 관련 함수 */
-    function updateRepleList(list, idx) {
-        // 삭제할 게시물의 댓글 삭제
-        for (let i = 0; i < list.length; i++) {
-            if (list[i].pid === idx) {
-                delete list[i]
-            }
-        }
-
-        const updated = list.filter((data) => data.length !== 0);
-
-        for (let i = 0; i < updated.length; i++) {
-            // 게시물 ID에 맞게 PID 변경 
-            if (updated[i].pid > idx) {
-                updated[i].pid--;
-            }
-        }
-
-        return updated;
-    }
 
     /* 갱신 함수 */
     function updateList(list) {
@@ -45,11 +23,9 @@ export default function PostPage() {
     const delPost = (id) => {
         if (window.confirm("삭제하시겠습니까?")) {
             const post_saved = JSON.parse(localStorage.getItem('posts'));
-            const reple_updated = updateRepleList(reply, id);
             delete post_saved[id];
             const post_updated = updateList(post_saved)
             localStorage.setItem('posts', JSON.stringify(post_updated));  // 로컬에 저장
-            localStorage.setItem('reples', JSON.stringify(reple_updated));  // 로컬에 저장
             alert("삭제되었습니다.")
 
             goHome()
@@ -96,12 +72,10 @@ export default function PostPage() {
                 <div className="comment">
                     <Comment
                         pid={post.id}
-                        data={reply}
                         post={post}
                     />
                     <CommentList
                         pid={post.id}
-                        data={reply}
                         post={post}
                     />
                 </div>

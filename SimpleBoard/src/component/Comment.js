@@ -8,12 +8,6 @@ export default function Comment(props) {
     const list = JSON.parse(localStorage.getItem('posts'));
     const commentRef = useRef();
 
-    /* 댓글 개수 갱신 */
-    function updateCount() {
-        list[pid].reply++;
-        localStorage.setItem('posts', JSON.stringify(list))
-    }
-
     /* 댓글 ID값 변경 */
     function getIdx(pid) {
         let idx = 0;
@@ -56,6 +50,10 @@ export default function Comment(props) {
     })
 
     const onContentChange = (event) => {
+        setReple({
+            ...reple,
+            content: event.currentTarget.value
+        })
         setPost({
             ...reples,
             content: event.currentTarget.value
@@ -63,25 +61,17 @@ export default function Comment(props) {
     };
 
     const addPost = () => {
-        if (reples.content === '') {
+        if (reple.content === '') {
             alert("댓글을 작성해 주세요.");
             commentRef.current.focus();
         } else {
-            reples.date = getDate()
+            reple.date = getDate()
 
-            if (!localStorage.getItem('reples')) {
-                const index_array = [];
-                index_array.push(reples);
-                localStorage.setItem('reples', JSON.stringify(index_array));  // 로컬에 저장
-            }
-            else {
-                const saved_array = JSON.parse(localStorage.getItem('reples'));
-                saved_array.push(reples);
-                localStorage.setItem('reples', JSON.stringify(saved_array));  // 로컬에 저장
-            }
+            let idx = list.findIndex(e => e.id === post['id']);
+            list[idx]['reples'].push(reple);
+            localStorage.setItem('posts', JSON.stringify(list));
 
             Refresh()
-            updateCount()
         }
     }
 
@@ -104,7 +94,7 @@ export default function Comment(props) {
                 <textarea
                     className="reple-content"
                     onChange={onContentChange}
-                    value={reples.content}
+                    value={reple.content}
                     placeholder="댓글을 입력해 주세요."
                     ref={commentRef}
                     type="text" >

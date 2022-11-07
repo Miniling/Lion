@@ -54,8 +54,8 @@ export default function WritingPage() {
         subject: '',
         title: '',
         content: '',
-        reply: 0,
         date: '',
+        reples: [],
     })
 
     const subjects = [
