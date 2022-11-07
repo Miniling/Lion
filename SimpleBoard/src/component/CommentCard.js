@@ -1,12 +1,10 @@
-import { useState } from 'react';
-import ReComment from './ReComment';
-import ReCommentList from './ReCommentList';
+import { useRef, useState } from 'react';
 import '../css/CommentCard.css';
 
 export default function CommentCard(props) {
     const reple = props.data;
     const list = JSON.parse(localStorage.getItem('posts'))
-    const re_reple = JSON.parse(localStorage.getItem('re_reples'));
+    const commentRef = useRef();
 
     const [visible, setVisible] = useState(false);
 
@@ -55,28 +53,23 @@ export default function CommentCard(props) {
     };
 
     const updatePost = (pid, id) => {
-        const saved_array = JSON.parse(localStorage.getItem('reples'));
-        let idx = findElement(saved_array, pid, id);
-        saved_array[idx].content = reples.content;
-        localStorage.setItem('reples', JSON.stringify(saved_array));  // 로컬에 저장
+        if (reples.content === '') {
+            alert("댓글을 작성해 주세요.");
+            commentRef.current.focus();
+        } else {
+            const saved_array = JSON.parse(localStorage.getItem('reples'));
+            let idx = findElement(saved_array, pid, id);
+            saved_array[idx].content = reples.content;
+            localStorage.setItem('reples', JSON.stringify(saved_array));  // 로컬에 저장
 
-        setIsClicked(!isClicked);
-        Refresh()
+            setIsClicked(!isClicked);
+            Refresh()
+        }
     }
 
     /* 삭제 관련 함수 */
     function updateRepleList(pid, id) {
-        // 삭제할 댓글의 대댓글 삭제
-        for (let i = 0; i < re_reple.length; i++) {
-            if ((re_reple[i].pid === pid) && (re_reple[i].rid === id)) {
-                delete re_reple[i];
-            }
-        }
 
-        const updated = re_reple.filter((data) => data.length !== 0);
-        // 댓글 고유 ID 유지되므로 대댓글 RID 변경 불필요
-
-        return updated;
     }
 
     /* 갱신 함수 */
@@ -94,17 +87,18 @@ export default function CommentCard(props) {
     }
 
     const delPost = (pid, id) => {
-        const saved_array = JSON.parse(localStorage.getItem('reples'));
-        const reple_updated = updateRepleList(pid, id);
-        let idx = findElement(saved_array, pid, id);
-        delete saved_array[idx];
-        const updated = updateList(saved_array, idx)
-        localStorage.setItem('reples', JSON.stringify(updated));  // 로컬에 저장
-        localStorage.setItem('re_reples', JSON.stringify(reple_updated));  // 로컬에 저장
-        alert("댓글 삭제")
+        if (window.confirm("삭제하시겠습니까?")) {
+            const saved_array = JSON.parse(localStorage.getItem('reples'));
+            const reple_updated = updateRepleList(pid, id);
+            let idx = findElement(saved_array, pid, id);
+            delete saved_array[idx];
+            const updated = updateList(saved_array, idx)
+            localStorage.setItem('reples', JSON.stringify(updated));  // 로컬에 저장
+            alert("댓글 삭제")
 
-        updateCount(saved_array)
-        Refresh()
+            updateCount(saved_array)
+            Refresh()
+        }
     }
 
     /* 새로고침 */
@@ -128,6 +122,8 @@ export default function CommentCard(props) {
                                 className="content-update"
                                 onChange={onContentChange}
                                 value={reples.content}
+                                placeholder="댓글을 입력해 주세요."
+                                ref={commentRef}
                                 type="text" />
                         </>
                     }
@@ -186,19 +182,6 @@ export default function CommentCard(props) {
                     {reple.date}
                 </a>
             </div>
-
-            {visible &&
-                <ReComment
-                    pid={reple.pid}
-                    rid={reple.id}
-                    data={re_reple}
-                />
-            }
-            <ReCommentList
-                pid={reple.pid}
-                rid={reple.id}
-                data={re_reple}
-            />
         </>
     )
 }

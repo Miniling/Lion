@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Footer from '../component/Footer';
 import '../css/WritingPage.css';
 
 export default function WritingPage() {
+    const subjectRef = useRef();
+    const titleRef = useRef();
+    const contentRef = useRef();
+
     function getIdx() {
         var idx = 0;
         if (JSON.parse(localStorage.getItem('posts')) != null) {
@@ -59,21 +63,32 @@ export default function WritingPage() {
     ]
 
     const addPost = () => {
-        posts.date = getDate()
+        if (posts.subject === '') {
+            alert("주제를 선택해 주세요.");
+            subjectRef.current.focus();
+        } else if (posts.title === '') {
+            alert("제목을 입력해 주세요.");
+            titleRef.current.focus();
+        } else if (posts.content === '') {
+            alert("내용을 입력해 주세요.");
+            contentRef.current.focus();
+        } else {
+            posts.date = getDate()
 
-        if (!localStorage.getItem('posts')) {
-            const index_array = [];
-            index_array.push(posts);
-            localStorage.setItem('posts', JSON.stringify(index_array));  // 로컬에 저장
-        }
-        else {
-            const saved_array = JSON.parse(localStorage.getItem('posts'));
-            saved_array.push(posts);
-            localStorage.setItem('posts', JSON.stringify(saved_array));  // 로컬에 저장
-        }
-        alert("등록되었습니다!")
+            if (!localStorage.getItem('posts')) {
+                const index_array = [];
+                index_array.push(posts);
+                localStorage.setItem('posts', JSON.stringify(index_array));  // 로컬에 저장
+            }
+            else {
+                const saved_array = JSON.parse(localStorage.getItem('posts'));
+                saved_array.push(posts);
+                localStorage.setItem('posts', JSON.stringify(saved_array));  // 로컬에 저장
+            }
+            alert("등록되었습니다.")
 
-        goHome()
+            goHome()
+        }
     }
 
     const goHome = () => {
@@ -102,7 +117,9 @@ export default function WritingPage() {
                     <select
                         className="subject"
                         onChange={onSubjectChange}
-                        value={posts.subject} >
+                        value={posts.subject}
+                        ref={subjectRef}
+                    >
                         {subjects.map((sub) => (
                             <option key={sub} value={sub}>
                                 {sub}
@@ -115,16 +132,18 @@ export default function WritingPage() {
                         onChange={onTitleChange}
                         value={posts.title}
                         type="text"
-                        placeholder="제목을 입력하세요." >
-                    </input>
+                        placeholder="제목을 입력하세요."
+                        ref={titleRef}
+                    />
 
                     <textarea
                         className="content"
                         onChange={onContentChange}
                         value={posts.content}
                         type="text"
-                        placeholder="내용을 입력하세요." >
-                    </textarea>
+                        placeholder="내용을 입력하세요."
+                        ref={contentRef}
+                    />
 
                     <button
                         className="back"

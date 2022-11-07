@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Footer from '../component/Footer';
 import '../css/WritingPage.css';
@@ -6,6 +6,10 @@ import '../css/WritingPage.css';
 export default function UpdatePage() {
     const location = useLocation();
     const post = location.state.data;
+
+    const subjectRef = useRef();
+    const titleRef = useRef();
+    const contentRef = useRef();
 
     const subjects = [
         '주제', '일상', '과제', '수강신청', '동아리', '취업', '시험', '알바'
@@ -42,14 +46,27 @@ export default function UpdatePage() {
     };
 
     const updatePost = (post) => {
-        const saved_array = JSON.parse(localStorage.getItem('posts'));
-        saved_array[post.id].title = posts.title;
-        saved_array[post.id].content = posts.content;
-        saved_array[post.id].subject = posts.subject;
-        localStorage.setItem('posts', JSON.stringify(saved_array));  // 로컬에 저장
-        alert("수정되었습니다!")
+        if (posts.subject === '' || posts.subject === '주제') {
+            alert("주제를 선택해 주세요.");
+            subjectRef.current.focus();
+        } else if (posts.title === '') {
+            alert("제목을 입력해 주세요.");
+            titleRef.current.focus();
+        } else if (posts.content === '') {
+            alert("내용을 입력해 주세요.");
+            contentRef.current.focus();
+        } else {
+            if (window.confirm("수정하시겠습니까?")) {
+                const saved_array = JSON.parse(localStorage.getItem('posts'));
+                saved_array[post.id].title = posts.title;
+                saved_array[post.id].content = posts.content;
+                saved_array[post.id].subject = posts.subject;
+                localStorage.setItem('posts', JSON.stringify(saved_array));  // 로컬에 저장
+                alert("수정되었습니다.");
 
-        goHome()
+                goHome()
+            }
+        }
     }
 
     const goHome = () => {
@@ -78,7 +95,9 @@ export default function UpdatePage() {
                     <select
                         className="subject"
                         onChange={onSubjectChange}
-                        value={posts.subject} >
+                        value={posts.subject}
+                        ref={subjectRef}
+                    >
                         {subjects.map((sub) => (
                             <option key={sub} value={sub}>
                                 {sub}
@@ -91,6 +110,8 @@ export default function UpdatePage() {
                         onChange={onTitleChange}
                         value={posts.title}
                         type="text"
+                        ref={titleRef}
+                        placeholder="제목을 입력해 주세요."
                     />
 
                     <textarea
@@ -98,6 +119,8 @@ export default function UpdatePage() {
                         onChange={onContentChange}
                         value={posts.content}
                         type="text"
+                        ref={contentRef}
+                        placeholder="내용을 입력해 주세요."
                     />
 
                     <button

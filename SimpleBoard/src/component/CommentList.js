@@ -8,7 +8,6 @@ export default function CommentList(props) {
     if (reply) {
         data = 1;
     }
-
     return (
         <>
             <div>

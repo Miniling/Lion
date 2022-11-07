@@ -8,7 +8,6 @@ export default function PostPage() {
     const location = useLocation();
     const post = location.state.data;
     const reply = JSON.parse(localStorage.getItem('reples'));
-    const re_reple = JSON.parse(localStorage.getItem('re_reples'));
 
     /* 삭제 관련 함수 */
     function updateRepleList(list, idx) {
@@ -44,17 +43,17 @@ export default function PostPage() {
     }
 
     const delPost = (id) => {
-        const post_saved = JSON.parse(localStorage.getItem('posts'));
-        const re_reple_updated = updateRepleList(re_reple, id);
-        const reple_updated = updateRepleList(reply, id);
-        delete post_saved[id];
-        const post_updated = updateList(post_saved)
-        localStorage.setItem('posts', JSON.stringify(post_updated));  // 로컬에 저장
-        localStorage.setItem('reples', JSON.stringify(reple_updated));  // 로컬에 저장
-        localStorage.setItem('re_reples', JSON.stringify(re_reple_updated));  // 로컬에 저장
-        alert("삭제되었습니다.")
+        if (window.confirm("삭제하시겠습니까?")) {
+            const post_saved = JSON.parse(localStorage.getItem('posts'));
+            const reple_updated = updateRepleList(reply, id);
+            delete post_saved[id];
+            const post_updated = updateList(post_saved)
+            localStorage.setItem('posts', JSON.stringify(post_updated));  // 로컬에 저장
+            localStorage.setItem('reples', JSON.stringify(reple_updated));  // 로컬에 저장
+            alert("삭제되었습니다.")
 
-        goHome()
+            goHome()
+        }
     }
 
     const goHome = () => {
@@ -98,10 +97,12 @@ export default function PostPage() {
                     <Comment
                         pid={post.id}
                         data={reply}
+                        post={post}
                     />
                     <CommentList
                         pid={post.id}
                         data={reply}
+                        post={post}
                     />
                 </div>
 
