@@ -24,7 +24,7 @@
 > Request/Get + SMTP
 <br><br>
 
-<h3>SimpleBoard</h3>
+<h3>SimpleBoard - Now Working</h3>
 > JS, CSS, React
 <br>
 > simple board. (posting, comment, reply)
