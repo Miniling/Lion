@@ -4,33 +4,10 @@ import '../css/Board.css';
 export default function Board(props) {
     var data = 0;
     const list = props.data;
-    const reply = JSON.parse(localStorage.getItem('reples'))
-
-    function updateCount() {
-        for (let i = 0; i < list.length; i++) {
-            list[i].reply = reply.filter(
-                (reple) => reple.pid === i).length
-        }
-        localStorage.setItem('posts', JSON.stringify(list));
-    }
-
-    function initCount() {
-        for (let i = 0; i < list.length; i++) {
-            list[i].reply = 0;
-        }
-        localStorage.setItem('posts', JSON.stringify(list));
-    }
 
     var listDesc = [];
     if (list) {
         data = 1;
-
-        if (reply) {
-            updateCount()
-        }
-        else {
-            initCount()
-        }
 
         // 배열 역순 정렬
         listDesc = list.slice(0).reverse().map(data => data);
@@ -46,7 +23,7 @@ export default function Board(props) {
                             <Link className='post-link'
                                 to={`/post/${post.id}`}
                                 state={{
-                                    data: post,
+                                    data: post.id,
                                 }}>
                                 <li className="post-card">
                                     <a className="post-title">{post.title}</a>
@@ -54,7 +31,7 @@ export default function Board(props) {
                                     <div className="post-info">
                                         <a className='info-left'>{post.subject}</a>
                                         <span className='info-right'>
-                                            <a>댓글{post.reply}</a>
+                                            <a>🗨 {post.comments.length}</a>
                                             <a>{post.date}</a>
                                         </span>
                                     </div>

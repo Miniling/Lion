@@ -1,12 +1,17 @@
-.reple-form {
+.comment-form {
     display: flex;
     flex-direction: column;
 }
-.reple-form > button {
-    margin-left: 90%;
+.comment-top > span {
+    float: left;
+    font-size: 20px;
+    font-weight: bold;
+}
+.comment-form > button {
+    float: right;
 }
 
-.reple-content {
+.comment-content {
     height: 100px;
     resize: none;
     padding: 4px;

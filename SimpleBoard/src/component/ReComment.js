@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import '../css/Comment.css';
 
-export default function Comment(props) {
+export default function ReComment(props) {
     const id = props.id;
     const post = JSON.parse(localStorage.getItem('posts'));
     const commentRef = useRef();

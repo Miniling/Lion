@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
+import ReComment from './ReComment';
 import '../css/CommentCard.css';
 
 export default function CommentCard(props) {
     const reple = props.data;
-    const list = JSON.parse(localStorage.getItem('posts'))
+    const pid = props.pid;
+    const post = JSON.parse(localStorage.getItem('posts'));
     const commentRef = useRef();
 
     const [visible, setVisible] = useState(false);
@@ -16,61 +18,50 @@ export default function CommentCard(props) {
         setIsClicked(!isClicked);
     }
 
-    /* 댓글 개수 갱신 */
-    function updateCount(reply) {
-        for (let i = 0; i < list.length; i++) {
-            list[i].reply = reply.length - 1;
-        }
-        localStorage.setItem('posts', JSON.stringify(list))
-    }
-
-    /* 해당 게시물의 댓글 Index 반환 */
-    function findElement(list, pid, id) {
-        let idx = -1;
-
-        // 게시물 ID와 댓글 ID가 일치하는 댓글의 인덱스 반환
-        for (let i = 0; i < list.length; i++) {
-            if ((list[i].pid === pid) && (list[i].id === id)) {
-                idx = i;
-            }
-        }
-        return idx;
-    }
-
     /* 수정 관련 함수 */
     const [isClicked, setIsClicked] = useState(false);
 
-    const [reples, setPost] = useState({
+    const [comment, setPost] = useState({
         content: reple.content,
         date: reple.date,
     })
 
     const onContentChange = (event) => {
         setPost({
-            ...reples,
+            ...comment,
             content: event.currentTarget.value
         });
     };
 
-    const updatePost = (pid, id) => {
-        if (reples.content === '') {
+    const updatePost = (id) => {
+        if (comment.content === '') {
             alert("댓글을 작성해 주세요.");
             commentRef.current.focus();
         } else {
-            const saved_array = JSON.parse(localStorage.getItem('reples'));
-            let idx = findElement(saved_array, pid, id);
-            saved_array[idx].content = reples.content;
-            localStorage.setItem('reples', JSON.stringify(saved_array));  // 로컬에 저장
+            if (window.confirm("수정하시겠습니까?")) {
+                post[pid].comments[id].content = comment.content;
+                localStorage.setItem('posts', JSON.stringify(post));  // 로컬에 저장
 
-            setIsClicked(!isClicked);
-            Refresh()
+                setIsClicked(!isClicked);
+                Refresh()
+            }
         }
     }
 
-    /* 삭제 관련 함수 */
-    function updateRepleList(pid, id) {
+    // /* 삭제 관련 함수 */
+    // function updateRepleList(pid, id) {
+    //     // 삭제할 댓글의 대댓글 삭제
+    //     for (let i = 0; i < re_reple.length; i++) {
+    //         if ((re_reple[i].pid === pid) && (re_reple[i].rid === id)) {
+    //             delete re_reple[i];
+    //         }
+    //     }
 
-    }
+    //     const updated = re_reple.filter((data) => data.length !== 0);
+    //     // 댓글 고유 ID 유지되므로 대댓글 RID 변경 불필요
+
+    //     return updated;
+    // }
 
     /* 갱신 함수 */
     function updateList(list, idx) {
@@ -86,18 +77,13 @@ export default function CommentCard(props) {
         return updated;
     }
 
-    const delPost = (pid, id) => {
+    const delPost = (id) => {
         if (window.confirm("삭제하시겠습니까?")) {
-            const saved_array = JSON.parse(localStorage.getItem('reples'));
-            const reple_updated = updateRepleList(pid, id);
-            let idx = findElement(saved_array, pid, id);
-            delete saved_array[idx];
-            const updated = updateList(saved_array, idx)
-            localStorage.setItem('reples', JSON.stringify(updated));  // 로컬에 저장
-            alert("댓글 삭제")
 
-            updateCount(saved_array)
-            Refresh()
+            localStorage.setItem('posts', JSON.stringify(post));  // 로컬에 저장
+            alert("댓글 삭제");
+
+            Refresh();
         }
     }
 
@@ -121,7 +107,7 @@ export default function CommentCard(props) {
                             <textarea
                                 className="content-update"
                                 onChange={onContentChange}
-                                value={reples.content}
+                                value={comment.content}
                                 placeholder="댓글을 입력해 주세요."
                                 ref={commentRef}
                                 type="text" />
@@ -134,7 +120,7 @@ export default function CommentCard(props) {
                         <>
                             <button
                                 className="delete-button"
-                                onClick={() => delPost(reple.pid, reple.id)}
+                                onClick={() => delPost(reple.id)}
                                 type="button"
                             >
                                 삭제
@@ -157,7 +143,7 @@ export default function CommentCard(props) {
                         <>
                             <button
                                 className="update-button"
-                                onClick={() => updatePost(reple.pid, reple.id)}
+                                onClick={() => updatePost(reple.id)}
                                 type="button"
                             >
                                 변경
@@ -172,6 +158,15 @@ export default function CommentCard(props) {
                         </>}
                 </div>
             </div>
+
+            {visible === false ?
+                null :
+                <div className='card-center'>
+                    <ReComment
+                    // id={ }
+                    />
+                </div>
+            }
 
             <div className="card-info">
                 <a className='info-re'>

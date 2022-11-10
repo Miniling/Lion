@@ -8,7 +8,7 @@ export default function WritingPage() {
     const contentRef = useRef();
 
     function getIdx() {
-        var idx = 0;
+        let idx = 0;
         if (JSON.parse(localStorage.getItem('posts')) != null) {
             idx = JSON.parse(localStorage.getItem('posts')).length
         }
@@ -55,7 +55,7 @@ export default function WritingPage() {
         title: '',
         content: '',
         date: '',
-        reples: [],
+        comments: [],
     })
 
     const subjects = [

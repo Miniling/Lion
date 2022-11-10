@@ -6,7 +6,8 @@ import '../css/PostPage.css';
 
 export default function PostPage() {
     const location = useLocation();
-    const post = location.state.data;
+    const id = location.state.data;
+    const post = JSON.parse(localStorage.getItem('posts'));
 
     /* 갱신 함수 */
     function updateList(list) {
@@ -22,9 +23,8 @@ export default function PostPage() {
 
     const delPost = (id) => {
         if (window.confirm("삭제하시겠습니까?")) {
-            const post_saved = JSON.parse(localStorage.getItem('posts'));
-            delete post_saved[id];
-            const post_updated = updateList(post_saved)
+            delete post[id];
+            const post_updated = updateList(post)
             localStorage.setItem('posts', JSON.stringify(post_updated));  // 로컬에 저장
             alert("삭제되었습니다.")
 
@@ -40,18 +40,18 @@ export default function PostPage() {
         <>
             <section id="head">
                 <div className="head-writing">
-                    <a>{post.title}</a>
+                    <a>{post[id].title}</a>
                     <span className='button'>
                         <button
                             className="delete-button"
-                            onClick={() => delPost(post.id)}
+                            onClick={() => delPost(id)}
                             type="button"
                         >
                             삭제
                         </button>
 
                         <Link className="update-button"
-                            to={`/post/${post.id}/update`}
+                            to={`/post/${id}/update`}
                             state={{
                                 data: post,
                             }}>
@@ -63,20 +63,18 @@ export default function PostPage() {
 
             <section id="body">
                 <div className="form">
-                    <div className="post-subject">{post.subject}</div>
+                    <div className="post-subject">{post[id].subject}</div>
                     <div className="content-box">
-                        {post.content}
+                        {post[id].content}
                     </div>
                 </div>
 
                 <div className="comment">
                     <Comment
-                        pid={post.id}
-                        post={post}
+                        id={id}
                     />
                     <CommentList
-                        pid={post.id}
-                        post={post}
+                        id={id}
                     />
                 </div>
 
