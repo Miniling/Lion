@@ -7,10 +7,13 @@ export default function WritingPage() {
     const titleRef = useRef();
     const contentRef = useRef();
 
-    function getIdx() {
+    // 마지막 게시물의 ID + 1, 없으면 ID=0
+    function getId() {
         let idx = 0;
         if (JSON.parse(localStorage.getItem('posts')) != null) {
-            idx = JSON.parse(localStorage.getItem('posts')).length
+            idx = JSON.parse(localStorage.getItem('posts')).length;
+            const post = JSON.parse(localStorage.getItem('posts'));
+            idx = post[idx - 1].id + 1;
         }
 
         return idx;
@@ -50,7 +53,7 @@ export default function WritingPage() {
     };
 
     const [posts, setPost] = useState({
-        id: getIdx(),
+        id: getId(),
         subject: '',
         title: '',
         content: '',

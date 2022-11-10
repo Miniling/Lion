@@ -2,16 +2,15 @@ import { useRef, useState } from "react";
 import '../css/Comment.css';
 
 export default function Comment(props) {
-    const id = props.id;
     const post = JSON.parse(localStorage.getItem('posts'));
+    const id = post.findIndex(e => e.id === props.id);     // 게시물 Index
     const commentRef = useRef();
 
-    function getIdx() {
-        let idx = post[id]['comments'].length - 1;
-        if (idx === 0) return 0;
-
-        // 마지막 댓글 ID의 다음 값 반환
-        return post[id].comments[idx]['id'] + 1;
+    // 현재 게시물의 마지막 댓글 ID + 1, 없으면 ID=0
+    function getId() {
+        let idx = post[id]['comments'].length;
+        if (idx === 0) return idx;
+        else return post[id].comments[idx - 1].id + 1;
     }
 
     function getDate() {
@@ -26,7 +25,7 @@ export default function Comment(props) {
 
     // post 로컬에 저장될 댓글 Obj
     const [comment, setReple] = useState({
-        id: getIdx(),
+        id: getId(),
         content: '',
         date: '',
         reply: [],
@@ -45,7 +44,6 @@ export default function Comment(props) {
             commentRef.current.focus();
         } else {
             comment.date = getDate()
-
             post[id]['comments'].push(comment);
             localStorage.setItem('posts', JSON.stringify(post));
 

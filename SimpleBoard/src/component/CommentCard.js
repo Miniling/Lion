@@ -9,17 +9,17 @@ export default function CommentCard(props) {
     const commentRef = useRef();
 
     const [visible, setVisible] = useState(false);
+    const [isClicked, setIsClicked] = useState(false);
 
+    // 대댓글 입력창 열고닫기
     const setView = () => {
         setVisible(!visible);
     }
 
+    // 댓글 수정 열고닫기
     const Switch = () => {
         setIsClicked(!isClicked);
     }
-
-    /* 수정 관련 함수 */
-    const [isClicked, setIsClicked] = useState(false);
 
     const [comment, setPost] = useState({
         content: reple.content,
@@ -33,6 +33,7 @@ export default function CommentCard(props) {
         });
     };
 
+    // 댓글 수정 기능
     const updatePost = (id) => {
         // 중간에 삭제된 댓글이 생기면 인덱스값과 달라지므로 찾아주기
         let idx = post[pid]['comments'].findIndex(e => e.id === id);
@@ -51,35 +52,7 @@ export default function CommentCard(props) {
         }
     }
 
-    // /* 삭제 관련 함수 */
-    // function updateRepleList(pid, id) {
-    //     // 삭제할 댓글의 대댓글 삭제
-    //     for (let i = 0; i < re_reple.length; i++) {
-    //         if ((re_reple[i].pid === pid) && (re_reple[i].rid === id)) {
-    //             delete re_reple[i];
-    //         }
-    //     }
-
-    //     const updated = re_reple.filter((data) => data.length !== 0);
-    //     // 댓글 고유 ID 유지되므로 대댓글 RID 변경 불필요
-
-    //     return updated;
-    // }
-
-    /* 갱신 함수 */
-    function updateList(list, idx) {
-        const updated = [];
-
-        for (let i = 0; i < idx; i++) {
-            updated.push(list[i]);
-        }
-        for (let i = idx + 1; i < list.length; i++) {
-            updated.push(list[i]);
-        }
-
-        return updated;
-    }
-
+    // 댓글 삭제 기능
     const delPost = (id) => {
         // 중간에 삭제된 댓글이 생기면 인덱스값과 달라지므로 찾아주기
         let idx = post[pid]['comments'].findIndex(e => e.id === id);

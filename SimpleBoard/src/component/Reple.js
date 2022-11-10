@@ -2,16 +2,17 @@ import { useRef, useState } from "react";
 import '../css/Comment.css';
 
 export default function Reple(props) {
-    const pid = props.pid;
-    const id = props.id;
     const post = JSON.parse(localStorage.getItem('posts'));
-    const replyRef = useRef();
+    const pid = post.findIndex(e => e.id === props.pid);  // 게시물 index
+    const id = post.findIndex(e => e[pid].comments.id === props.id);    // 댓글 index
+    console.log(post);
+    const repleRef = useRef();
 
-    function getIdx() {
+    // 현재 댓글의 마지막 대댓글 ID + 1, 없으면 ID=0
+    function getId() {
         let idx = post[pid].comments[id]['reply'].length;
         if (idx === 0) return idx;
-
-        return post[pid].comments[id].reply[idx] + 1;
+        else return post[pid].comments[id].reply[idx]['id'] + 1;
     }
 
     function getDate() {
@@ -25,29 +26,29 @@ export default function Reple(props) {
     }
 
     // post 로컬에 저장될 대댓글 Obj
-    const [reply, setReple] = useState({
-        id: getIdx(),
+    const [reple, setReple] = useState({
+        id: getId(),
         content: '',
         date: '',
     })
 
     const onContentChange = (event) => {
         setReple({
-            ...reply,
+            ...reple,
             content: event.currentTarget.value
         })
     };
 
     const addPost = () => {
-        if (reply.content === '') {
+        if (reple.content === '') {
             alert("댓글을 작성해 주세요.");
-            replyRef.current.focus();
+            repleRef.current.focus();
         } else {
-            reply.date = getDate()
+            reple.date = getDate()
 
-            let idx = post.findIndex(e => e.id === id);
+            console.log(pid, id);
             // post[idx]['comments'].push(comment);
-            localStorage.setItem('posts', JSON.stringify(post));
+            // localStorage.setItem('posts', JSON.stringify(post));
 
             Refresh()
         }
@@ -62,7 +63,7 @@ export default function Reple(props) {
         <>
             <div className="comment-form">
                 <div className="reple-top">
-                    <span className="reple-title">익명{id + 1}에게 답글 달기</span>
+                    <span className="reple-title">익명{props.id + 1}에게 답글 달기</span>
                     <button
                         className="posting-button"
                         onClick={addPost}
@@ -74,9 +75,9 @@ export default function Reple(props) {
                 <textarea
                     className="reple-content"
                     onChange={onContentChange}
-                    value={reply.content}
+                    value={reple.content}
                     placeholder="대댓글을 입력해 주세요."
-                    ref={replyRef}
+                    ref={repleRef}
                     type="text" >
                 </textarea>
             </div>

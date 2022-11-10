@@ -1,8 +1,9 @@
 import CommentCard from "./CommentCard";
 
 export default function CommentList(props) {
-    const id = props.id;
+    const id = props.id;    // 게시물 ID
     const post = JSON.parse(localStorage.getItem('posts'));
+    const idx = post.findIndex(e => e.id === id);
 
     return (
         <>

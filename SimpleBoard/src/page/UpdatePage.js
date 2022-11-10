@@ -7,6 +7,7 @@ export default function UpdatePage() {
     const location = useLocation();
     const post = location.state.data;
 
+    console.log(post);
     const subjectRef = useRef();
     const titleRef = useRef();
     const contentRef = useRef();

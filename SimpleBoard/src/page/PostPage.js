@@ -6,26 +6,15 @@ import '../css/PostPage.css';
 
 export default function PostPage() {
     const location = useLocation();
-    const id = location.state.data;
+    const id = location.state.data;     // 게시물 ID
     const post = JSON.parse(localStorage.getItem('posts'));
+    const idx = post.findIndex(e => e.id === id);   // 게시물 Index
 
-    /* 갱신 함수 */
-    function updateList(list) {
-        const updated = list.filter((data) => data.length !== 0);
-
-        // 게시물 ID 갱신
-        for (let i = 0; i < updated.length; i++) {
-            updated[i].id = i;
-        }
-
-        return updated;
-    }
-
-    const delPost = (id) => {
+    const delPost = () => {
         if (window.confirm("삭제하시겠습니까?")) {
-            delete post[id];
-            const post_updated = updateList(post)
-            localStorage.setItem('posts', JSON.stringify(post_updated));  // 로컬에 저장
+
+            post.splice(idx, 1);
+            localStorage.setItem('posts', JSON.stringify(post));  // 로컬에 저장
             alert("삭제되었습니다.")
 
             goHome()
@@ -40,11 +29,11 @@ export default function PostPage() {
         <>
             <section id="head">
                 <div className="head-writing">
-                    <a>{post[id].title}</a>
+                    <a>{post[idx].title}</a>
                     <span className='button'>
                         <button
                             className="delete-button"
-                            onClick={() => delPost(id)}
+                            onClick={() => delPost()}
                             type="button"
                         >
                             삭제
@@ -63,9 +52,9 @@ export default function PostPage() {
 
             <section id="body">
                 <div className="form">
-                    <div className="post-subject">{post[id].subject}</div>
+                    <div className="post-subject">{post[idx].subject}</div>
                     <div className="content-box">
-                        {post[id].content}
+                        {post[idx].content}
                     </div>
                 </div>
 
