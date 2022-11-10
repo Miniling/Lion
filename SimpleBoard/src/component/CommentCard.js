@@ -34,12 +34,15 @@ export default function CommentCard(props) {
     };
 
     const updatePost = (id) => {
+        // 중간에 삭제된 댓글이 생기면 인덱스값과 달라지므로 찾아주기
+        let idx = post[pid]['comments'].findIndex(e => e.id === id);
+
         if (comment.content === '') {
             alert("댓글을 작성해 주세요.");
             commentRef.current.focus();
         } else {
             if (window.confirm("수정하시겠습니까?")) {
-                post[pid].comments[id].content = comment.content;
+                post[pid].comments[idx].content = comment.content;
                 localStorage.setItem('posts', JSON.stringify(post));  // 로컬에 저장
 
                 setIsClicked(!isClicked);
@@ -78,8 +81,11 @@ export default function CommentCard(props) {
     }
 
     const delPost = (id) => {
+        // 중간에 삭제된 댓글이 생기면 인덱스값과 달라지므로 찾아주기
+        let idx = post[pid]['comments'].findIndex(e => e.id === id);
+
         if (window.confirm("삭제하시겠습니까?")) {
-            post[pid]['comments'].splice(id, 1);
+            post[pid]['comments'].splice(idx, 1);
             localStorage.setItem('posts', JSON.stringify(post));  // 로컬에 저장
             alert("댓글 삭제");
 
