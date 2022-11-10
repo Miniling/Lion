@@ -7,7 +7,7 @@ export default function UpdatePage() {
     const location = useLocation();
     const post = location.state.data;
 
-    console.log(post);
+
     const subjectRef = useRef();
     const titleRef = useRef();
     const contentRef = useRef();
@@ -46,7 +46,7 @@ export default function UpdatePage() {
         });
     };
 
-    const updatePost = (post) => {
+    const updatePost = () => {
         if (posts.subject === '' || posts.subject === '주제') {
             alert("주제를 선택해 주세요.");
             subjectRef.current.focus();
@@ -59,9 +59,10 @@ export default function UpdatePage() {
         } else {
             if (window.confirm("수정하시겠습니까?")) {
                 const saved_array = JSON.parse(localStorage.getItem('posts'));
-                saved_array[post.id].title = posts.title;
-                saved_array[post.id].content = posts.content;
-                saved_array[post.id].subject = posts.subject;
+                let idx = saved_array.findIndex(e => e.id === post.id);
+                saved_array[idx].title = posts.title;
+                saved_array[idx].content = posts.content;
+                saved_array[idx].subject = posts.subject;
                 localStorage.setItem('posts', JSON.stringify(saved_array));  // 로컬에 저장
                 alert("수정되었습니다.");
 
@@ -82,7 +83,7 @@ export default function UpdatePage() {
                     <span>
                         <button
                             className="posting-button"
-                            onClick={() => updatePost(post)}
+                            onClick={() => updatePost()}
                             type="button"
                         >
                             완료
