@@ -20,11 +20,11 @@ export default function WritingPage() {
     }
 
     function getDate() {
-        let now = new Date()
-        let year = now.getFullYear()
-        let month = now.getMonth() + 1
-        let date = now.getDate()
-        let today = `${year}-${month}-${date}`
+        let now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth() + 1;
+        let date = now.getDate();
+        let today = `${year}-${month}-${date}`;
 
         return today;
     }
@@ -76,7 +76,7 @@ export default function WritingPage() {
             alert("내용을 입력해 주세요.");
             contentRef.current.focus();
         } else {
-            posts.date = getDate()
+            posts.date = getDate();
 
             if (!localStorage.getItem('posts')) {
                 const index_array = [];
@@ -88,9 +88,9 @@ export default function WritingPage() {
                 saved_array.push(posts);
                 localStorage.setItem('posts', JSON.stringify(saved_array));  // 로컬에 저장
             }
-            alert("등록되었습니다.")
+            alert("등록되었습니다.");
 
-            goHome()
+            goHome();
         }
     }
 

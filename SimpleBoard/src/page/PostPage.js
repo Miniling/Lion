@@ -42,7 +42,7 @@ export default function PostPage() {
                         <Link className="update-button"
                             to={`/post/${id}/update`}
                             state={{
-                                data: post,
+                                data: post[idx],
                             }}>
                             수정
                         </Link>

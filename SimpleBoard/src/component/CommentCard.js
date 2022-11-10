@@ -3,9 +3,9 @@ import '../css/CommentCard.css';
 import Reple from './Reple';
 
 export default function CommentCard(props) {
-    const reple = props.data;
-    const pid = props.pid;
     const post = JSON.parse(localStorage.getItem('posts'));
+    const reple = props.data;   // 각 댓글카드의 댓글 데이터
+    const pid = post.findIndex(e => e.id === props.pid);  // 게시물 Index
     const commentRef = useRef();
 
     const [visible, setVisible] = useState(false);
@@ -35,7 +35,7 @@ export default function CommentCard(props) {
 
     // 댓글 수정 기능
     const updatePost = (id) => {
-        // 중간에 삭제된 댓글이 생기면 인덱스값과 달라지므로 찾아주기
+        // 중간에 삭제된 댓글이 생기면 인덱스값이 달라지므로 찾아주기
         let idx = post[pid]['comments'].findIndex(e => e.id === id);
 
         if (comment.content === '') {

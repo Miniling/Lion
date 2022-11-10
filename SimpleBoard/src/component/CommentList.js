@@ -1,9 +1,8 @@
 import CommentCard from "./CommentCard";
 
 export default function CommentList(props) {
-    const id = props.id;    // 게시물 ID
     const post = JSON.parse(localStorage.getItem('posts'));
-    const idx = post.findIndex(e => e.id === id);
+    const id = post.findIndex(e => e.id === props.id);    // 게시물 Index
 
     return (
         <>
@@ -11,11 +10,11 @@ export default function CommentList(props) {
                 {post[id]['comments'].length === 0 ?
                     <a>아직 작성된 댓글이 없습니다.</a> :
                     <div className='board-list'>
-                        {post[id]['comments'].map(re => (
+                        {post[id]['comments'].map(reple => (
                             <li className="post-card">
                                 <CommentCard
-                                    data={re}
-                                    pid={id}
+                                    data={reple}
+                                    pid={props.id}
                                 />
                             </li>
                         ))}

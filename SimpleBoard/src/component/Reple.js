@@ -3,9 +3,8 @@ import '../css/Comment.css';
 
 export default function Reple(props) {
     const post = JSON.parse(localStorage.getItem('posts'));
-    const pid = post.findIndex(e => e.id === props.pid);  // 게시물 index
-    const id = post.findIndex(e => e[pid].comments.id === props.id);    // 댓글 index
-    console.log(post);
+    const pid = props.pid;  // 게시물 Index
+    const id = post[pid]['comments'].findIndex(e => e.id === props.id);   // 댓글 index
     const repleRef = useRef();
 
     // 현재 댓글의 마지막 대댓글 ID + 1, 없으면 ID=0
