@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
-import ReComment from './ReComment';
 import '../css/CommentCard.css';
+import Reple from './Reple';
 
 export default function CommentCard(props) {
     const reple = props.data;
@@ -79,7 +79,7 @@ export default function CommentCard(props) {
 
     const delPost = (id) => {
         if (window.confirm("삭제하시겠습니까?")) {
-
+            post[pid]['comments'].splice(id, 1);
             localStorage.setItem('posts', JSON.stringify(post));  // 로컬에 저장
             alert("댓글 삭제");
 
@@ -159,15 +159,6 @@ export default function CommentCard(props) {
                 </div>
             </div>
 
-            {visible === false ?
-                null :
-                <div className='card-center'>
-                    <ReComment
-                    // id={ }
-                    />
-                </div>
-            }
-
             <div className="card-info">
                 <a className='info-re'>
                     {reple.reply}
@@ -177,6 +168,16 @@ export default function CommentCard(props) {
                     {reple.date}
                 </a>
             </div>
+
+            {visible === false ?
+                null :
+                <div className='card-reple'>
+                    <Reple
+                        pid={pid}
+                        id={reple.id}
+                    />
+                </div>
+            }
         </>
     )
 }

@@ -7,10 +7,11 @@ export default function Comment(props) {
     const commentRef = useRef();
 
     function getIdx() {
-        let idx = post[id]['comments'].length;
-        if (idx === 0) return idx;
+        let idx = post[id]['comments'].length - 1;
+        if (idx === 0) return 0;
 
-        return post[id].comments[idx] + 1;
+        // 마지막 댓글 ID의 다음 값 반환
+        return post[id].comments[idx]['id'] + 1;
     }
 
     function getDate() {
@@ -45,8 +46,7 @@ export default function Comment(props) {
         } else {
             comment.date = getDate()
 
-            let idx = post.findIndex(e => e.id === id);
-            post[idx]['comments'].push(comment);
+            post[id]['comments'].push(comment);
             localStorage.setItem('posts', JSON.stringify(post));
 
             Refresh()
@@ -62,7 +62,7 @@ export default function Comment(props) {
         <>
             <div className="comment-form">
                 <div className="comment-top">
-                    <span>댓글 {post[id]['comments'].length}</span>
+                    <span className="comment-title">댓글 {post[id]['comments'].length}</span>
                     <button
                         className="posting-button"
                         onClick={addPost}
